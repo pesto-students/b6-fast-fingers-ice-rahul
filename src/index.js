@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { App, StateProvider } from './components';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateProvider>
+      <Suspense fallback={null}>
+        <App />
+      </Suspense>
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,3 +1,28 @@
+@font-face {
+  font-family: Gotham;
+  src: url('./assets/fonts/Gotham\ Medium\ Regular.ttf');
+}
+
+@font-face {
+  font-family: GothamBook;
+  src: url('./assets/fonts/GothamBook.ttf');
+}
+
+@font-face {
+  font-family: Breamcatcher;
+  src: url('./assets/fonts/breamcatcher.ttf');
+}
+
+@font-face {
+  font-family: Lasercorps;
+  src: url('./assets/fonts/lasercorpsgrad.ttf');
+}
+
+body, html{
+  padding: 0;
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +30,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  position: relative;
+}
+
+html {
+  background: url('./assets/images/fast-fingers-background.png'); 
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+  background-position: center;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.error{
+  margin: 0;
+  color: #FF5155;
+  text-align: left;
+  padding-left: 15px;
+  margin-top: 2px;
 }

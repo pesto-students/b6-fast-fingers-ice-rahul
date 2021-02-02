@@ -1,0 +1,15 @@
+.gameContainer {
+    margin: 1%;
+    display: inline-block;
+    vertical-align: top;
+    width: 75%;
+    min-height: 10em;
+    text-align: center;
+}
+
+.wordChallenge{
+    font-family: Gotham;
+    color: white;
+    font-size: 4em;
+    margin:15px;
+}

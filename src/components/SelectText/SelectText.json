@@ -1,0 +1,20 @@
+[ 
+    {
+        "level" : "EASY",
+        "difficultyFactor" : 1,
+        "minWord" : 1,
+        "maxWord" : 4
+    } , 
+    {
+        "level" : "MEDIUM",
+        "difficultyFactor" : 1.5,
+        "minWord" : 5,
+        "maxWord" : 8
+    }, 
+    {
+        "level" : "HARD",
+        "difficultyFactor" : 2,
+        "minWord" : 8,
+        "maxWord" : 15
+    }
+]

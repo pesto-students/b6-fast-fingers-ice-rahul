@@ -1,0 +1,15 @@
+.timerContainer{
+  position: relative;
+  display: inline-block;
+}
+
+.progress-ring{
+  position: absolute;
+  left: 0;
+}
+
+.progress-ring__circle {
+  transition: 0.35s stroke-dashoffset;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}

@@ -1,0 +1,42 @@
+.headerRow {
+    width: 100%;
+    padding: 15px;
+    color: white;
+}
+
+.sectionRow {
+    width: 100%;
+    padding: 5px 15px;
+    color: white;
+}
+
+.sectionHalf{
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.alignRight{
+    text-align: right;
+}
+
+.titleHeader{
+    font-family: Lasercorps;
+    font-size: 2em;
+    color: #FF5155;
+}
+
+.playerIcon{
+    width: 30px;
+    height: 30px;
+}
+
+.iconTitle{
+    display: inline-block;
+    margin: 0;
+    vertical-align: text-bottom;
+    font-size: 2em;
+    padding-left: 15px;
+    font-family: Breamcatcher;
+    color: #FF5155;
+}
