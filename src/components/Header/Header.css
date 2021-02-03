@@ -40,3 +40,13 @@
     font-family: Breamcatcher;
     color: #FF5155;
 }
+
+.scoreTitle{
+    display: inline-block;
+    margin: 0;
+    vertical-align: text-bottom;
+    font-size: 1.5em;
+    padding-left: 15px;
+    font-family: Gotham;
+    color: #FF5155;
+}

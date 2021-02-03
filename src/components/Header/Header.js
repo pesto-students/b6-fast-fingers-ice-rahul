@@ -20,7 +20,12 @@ function Header({userName, difficulty}) {
                     </div>
                 </div>
                 <div className="sectionHalf alignRight">
-                    <span className="titleHeader">fast fingers</span>
+                    <div className="sectionRow">
+                        <span className="titleHeader">fast fingers</span>
+                    </div>
+                    <div className="sectionRow">
+                        <p className="scoreTitle">SCORE : { Number(appData.score).toFixed(2) }</p>
+                    </div>  
                 </div>
             </div>
         </>

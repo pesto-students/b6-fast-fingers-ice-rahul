@@ -52,9 +52,9 @@ function App() {
   }
 
   const showScore = () => {
-    if(appData.gameScores[appData.gameScores.length-1])
+    if(appData.score)
     {
-      const secondsElapsed =  Number(appData.gameScores[appData.gameScores.length-1].score).toFixed(2);
+      const secondsElapsed =  Number(appData.score).toFixed(2);
       const secondsToConvert = Math.floor(secondsElapsed);
       const milliSeconds = Math.floor((secondsElapsed - secondsToConvert) * 100);
       const minutes = Math.floor(secondsToConvert/60);
@@ -88,7 +88,7 @@ function App() {
         <Header userName={name} difficulty={difficulty}/>
         <div className="thanksBody">
           <h1 className="finalGame">Score : Game { appData.gameScores ? appData.gameScores.length : 0 }</h1>
-          <p className="finalScore">{ appData.gameScores ? showScore() : 0 }</p>
+          <p className="finalScore">{ appData.score ? showScore() : 0 }</p>
           <p className="highScore">{ "New High Score" }</p>
           <p className="playAgain" onClick={playAgain}>Play Again</p>
         </div>
