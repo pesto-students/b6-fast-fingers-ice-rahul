@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { InputText, SelectText, Header, AppContext, DropDownList, Footer } from '../../components';
+import {Logo, InputText, SelectText, Header, AppContext, DropDownList, Footer } from '../../components';
 import Game from '../Game/Game';
 import ScoreBoard from '../ScoreBoard/ScoreBoard';
 import './App.css';
- const Logo = React.lazy(()=> import ('../Logo/Logo'));
 
 function App() {
 
@@ -17,7 +16,8 @@ function App() {
             ...prevValue,
             pageIndex:1,
             nameError: '',
-            selectError: ''
+            selectError: '',
+            gameInput: ''
         }
       });
     } else if (!appData[name]) {
@@ -39,13 +39,29 @@ function App() {
     }
   }
 
+  const playAgain = () => {
+    setAppData((prevValue) => {
+      return {
+          ...prevValue,
+          pageIndex:1,
+          nameError: '',
+          selectError: '',
+          gameInput: '',
+      }
+    });
+  }
+
   const showScore = () => {
-    const secondsElapsed =  Number(appData.gameScores[appData.gameScores.length-1].score).toFixed(2);
-    const secondsToConvert = Math.floor(secondsElapsed);
-    const milliSeconds = Math.floor((secondsElapsed - secondsToConvert) * 100);
-    const minutes = Math.floor(secondsToConvert/60);
-    const seconds = secondsToConvert%60;
-    return `${minutes} : ${seconds}.${milliSeconds}`;
+    if(appData.gameScores[appData.gameScores.length-1])
+    {
+      const secondsElapsed =  Number(appData.gameScores[appData.gameScores.length-1].score).toFixed(2);
+      const secondsToConvert = Math.floor(secondsElapsed);
+      const milliSeconds = Math.floor((secondsElapsed - secondsToConvert) * 100);
+      const minutes = Math.floor(secondsToConvert/60);
+      const seconds = secondsToConvert%60;
+      return `${minutes} : ${seconds}.${milliSeconds}`;
+    }
+    return `00 : 00.00`;
   }
 
   return (
@@ -65,7 +81,7 @@ function App() {
           <ScoreBoard />
           <Game />
         </div>
-        <Footer />
+        <Footer leftButton="stop"/>
       </div>
 
       <div className="Thanks" style={{ display:appData.pageIndex===2 ? "block" : "none" }}>
@@ -73,8 +89,10 @@ function App() {
         <div className="thanksBody">
           <h1 className="finalGame">Score : Game { appData.gameScores ? appData.gameScores.length : 0 }</h1>
           <p className="finalScore">{ appData.gameScores ? showScore() : 0 }</p>
+          <p className="highScore">{ "New High Score" }</p>
+          <p className="playAgain" onClick={playAgain}>Play Again</p>
         </div>
-        <Footer />
+        <Footer leftButton="quit"/>
       </div>
 
     </>

@@ -29,7 +29,8 @@ function SelectText(props){
                 return {
                     ...prevValue,
                     [props.name]: selectedVal,
-                    [difficultyConfig.level]: filteredList 
+                    [difficultyConfig.level]: filteredList, 
+                    currentDifficultyFactor: difficultyConfig.difficultyFactor
                 }
             });
         }

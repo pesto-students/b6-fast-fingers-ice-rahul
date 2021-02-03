@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { AppContext } from '../../components';
+import { AppContext, DropDownList } from '../../components';
 import './Timer.css';
 
 function Timer({seconds, name}) {
@@ -27,6 +27,7 @@ function Timer({seconds, name}) {
     }
 
     const gameOver = () => {
+        const difficultyConfig = DropDownList.filter((val) => val.level === appData.difficulty )[0];
         let currentScore = {};
         let gameScores = [];
         currentScore.score = appData.score;
@@ -37,8 +38,9 @@ function Timer({seconds, name}) {
         setAppData((prevValue) => {
             return {
                 ...prevValue,
-                "gameScores": gameScores,
-                "pageIndex": 2
+                gameScores: gameScores,
+                pageIndex: 2,
+                currentDifficultyFactor: difficultyConfig.difficultyFactor
             }
         });
     }

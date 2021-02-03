@@ -13,7 +13,8 @@ export const StateProvider = (props) => {
     const [appData, setAppData] = useState({
         pageIndex: 0, 
         difficulty: selectedVal,
-        [difficultyConfig.level]: filteredList
+        [difficultyConfig.level]: filteredList,
+        currentDifficultyFactor: difficultyConfig.difficultyFactor
     });
     
     return (

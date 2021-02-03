@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Timer, InputText, AppContext, DropDownList } from '../../components';
+import { Timer, InputText, AppContext, DropDownList, Dictionary } from '../../components';
 import './Game.css'
 
 function Game() {
@@ -60,7 +60,33 @@ function Game() {
         const index = Math.floor(randomNumber);
         const word = appData[difficultyConfig.level][index];
         setWordChallenge(word);
-        setSeconds(word.length);
+        const allowedTime = Math.ceil(word.length / appData.currentDifficultyFactor); 
+        let currentDifficultyFactor = appData.currentDifficultyFactor + 0.01;
+        setAppData((prevValue)=>{
+            return {
+                ...prevValue,
+                currentDifficultyFactor: appData.currentDifficultyFactor + 0.01
+            }
+        })
+        console.log(currentDifficultyFactor);
+        let filteredDifficultyFactorList = DropDownList.filter((val) => (currentDifficultyFactor > val.difficultyFactor));
+        let difficultyFactorList = filteredDifficultyFactorList[filteredDifficultyFactorList.length - 1];
+        if(difficultyFactorList !== undefined && appData.difficulty !== difficultyFactorList.level) {
+            let filteredList = [];
+            if(appData[difficultyFactorList.level]){
+                filteredList = appData[difficultyFactorList.level];
+            } else {
+                filteredList = Dictionary.filter((val) => val.length >= difficultyFactorList.minWord && val.length <= difficultyFactorList.maxWord);
+            }
+            setAppData((prevValue) => {
+                return {
+                    ...prevValue,
+                    difficulty: difficultyFactorList.level,
+                    [difficultyFactorList.level]: filteredList
+                }
+            });
+        }
+        setSeconds(allowedTime > 2 ? allowedTime : 2);
         console.log("I changed", Number(appData.score).toFixed(2));
     }
 

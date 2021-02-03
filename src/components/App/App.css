@@ -30,6 +30,10 @@
   padding:15px;
 }
 
+.Thanks{
+  padding:15px;
+}
+
 .thanksBody{
   min-height: 65vh;
   text-align: center;
@@ -39,11 +43,40 @@
 .finalGame{
   font-family: Gotham;
   padding-top: 2em;
-  font-size: 2.5em;
+  font-size: 3em;
 }
 
 .finalScore{
   font-family: Gotham;
   font-size: 3.5em;
   margin-top: 0em;
+}
+
+.highScore{
+  font-family: GothamBook;
+  font-size: 2em;
+  margin-top: 0em;
+}
+
+.playAgain{
+  color: #FF5155;
+  font-family: Gotham;
+  font-size: 2em;
+  cursor: pointer;
+  position: relative;
+  width: 20%;
+  min-width: 10em;
+  margin: auto;
+  padding-left: 1em;
+  margin-top: 1.5em;
+}
+
+.playAgain::before{
+  position: absolute;
+  background-image: url('../../assets/images/icons/reload-icon.svg');
+  background-size: contain;
+  width: 1em; 
+  height: 1em;
+  left: 1.5em;
+  content:"";
 }
