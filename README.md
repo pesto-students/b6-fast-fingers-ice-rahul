@@ -1,3 +1,7 @@
+## About
+
+**Website** [url](https://rahul-fastfingers.netlify.app/)
+
 # Fast Fingers
 
 Pesto Tech is proudly launching its own speed typing game named **Fast fingers**. You have been awarded with the project and you need to design and develop this project which should
@@ -86,7 +90,3 @@ Zeplin App Link: zpl://project?pid=5f75f13621f33094313f2b94
 - Jest and React Testing Library
 
 **NOTE: React Component libraries like Material UI, Antd, Chakra UI are not allowed**
-
-## About
-
-**Website** [url](https://rahul-fastfingers.netlify.app/)
