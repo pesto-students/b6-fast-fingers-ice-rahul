@@ -1,66 +1,66 @@
-.selectBox{
-    font-family: 'Breamcatcher';
-    padding: 0.5em 1em;
-    font-size: 1.5em;
-    outline: none;
-    border-radius: 10px;
-    border: 1px solid white;
-    background: #ffffff00;
-    color: #97A5A7;
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    appearance:none;
-    text-align: left;
-    position: relative;
+.selectBox {
+  font-family: "Breamcatcher";
+  padding: 0.5em 1em;
+  font-size: 1.5em;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid white;
+  background: #ffffff00;
+  color: #97a5a7;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  text-align: left;
+  position: relative;
 }
 
-div.selectText{
-    margin: 0 auto;
-    position: relative;
-    width: 25%;
-    min-width: 25em;
-    cursor: pointer;
+div.selectText {
+  margin: 0 auto;
+  position: relative;
+  width: 25%;
+  min-width: 25em;
+  cursor: pointer;
 }
 
-div.selectText::before{
-    content: url('../../assets/images/icons/drop.svg');
-    width: 30px;
-    position: absolute;
-    text-align: right;
-    top: 1.1em;
-    right: 15px;
+div.selectText::before {
+  content: url("../../assets/images/icons/drop.svg");
+  width: 30px;
+  position: absolute;
+  text-align: right;
+  top: 1.1em;
+  right: 15px;
 }
 
-.selectChild{
-    position: absolute;
-    left: 5px;
-    right: 5px;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    background: #ffffffa6;
-    color: #032228;
-    top: 2.2em;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+.selectChild {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background: #ffffffa6;
+  color: #032228;
+  top: 2.2em;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
-.selectChild p{
-    margin: 0px auto;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 0.8em;
-    padding-left: 10px;
+.selectChild p {
+  margin: 0px auto;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 0.8em;
+  padding-left: 10px;
 }
 
-.selectBox p:hover{
-    background-color: #053A45;
-    color: white;
+.selectBox p:hover {
+  background-color: #053a45;
+  color: white;
 }
 
 .selectChild p:first-child {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 .selectChild p:last-child {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }

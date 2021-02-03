@@ -1,25 +1,25 @@
 import React, { useState, createContext } from 'react';
-import { DropDownList, Dictionary } from '../../components';
+import { DropDownList as DifficultyList, Dictionary } from '../../components';
 
 export const AppContext = createContext();
 
 export const StateProvider = (props) => {
 
-    const selectedVal = "EASY";
-    const difficultyConfig = DropDownList.filter((val) => val.level === selectedVal )[0];
+    const defaultDifficulty = "EASY";
+    const difficultyConfig = DifficultyList.filter((config) => config.level === defaultDifficulty)[0];
     let filteredList = [];
-    filteredList = Dictionary.filter((val) => val.length >= difficultyConfig.minWord && val.length <= difficultyConfig.maxWord);
+    filteredList = Dictionary.filter((word) => word.length >= difficultyConfig.minWord && word.length <= difficultyConfig.maxWord);
 
     const [appData, setAppData] = useState({
-        pageIndex: 0, 
-        difficulty: selectedVal,
+        pageIndex: 0,
+        difficulty: defaultDifficulty,
         [difficultyConfig.level]: filteredList,
         currentDifficultyFactor: difficultyConfig.difficultyFactor
     });
-    
+
     return (
         <AppContext.Provider value={[appData, setAppData]}>
-            { props.children }
+            { props.children}
         </AppContext.Provider>
     );
 }

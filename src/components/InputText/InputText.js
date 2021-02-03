@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../components';
 import './InputText.css';
 
-function InputText({ placeholder, name }){
+function InputText({ placeholder, name }) {
     const [appData, setAppData] = useContext(AppContext);
 
     const setText = (event) => {
@@ -10,7 +10,7 @@ function InputText({ placeholder, name }){
         setAppData((prevValue) => {
             return {
                 ...prevValue,
-                [name]:value
+                [name]: value
             }
         });
     }

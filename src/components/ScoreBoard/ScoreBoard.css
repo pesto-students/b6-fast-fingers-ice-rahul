@@ -1,27 +1,27 @@
 .scoreBoardContainer {
-    margin: 1%;
-    display: inline-block;
-    vertical-align: top;
-    width: 15%;
-    min-height: 65vh;
-    border-radius: 10px;
-    border: 1px solid #FF5155;
+  margin: 1%;
+  display: inline-block;
+  vertical-align: top;
+  width: 15%;
+  min-height: 65vh;
+  border-radius: 10px;
+  border: 1px solid #ff5155;
 }
 
 .scoreBoardTitle {
-    color: #FF5155;
-    font-family: GothamBook;
-    text-align: center;
-    font-size: 1.2em;
-    margin: 0;
-    margin-bottom: 2.5em;
-    padding-top: 1.5em;
+  color: #ff5155;
+  font-family: GothamBook;
+  text-align: center;
+  font-size: 1.2em;
+  margin: 0;
+  margin-bottom: 2.5em;
+  padding-top: 1.5em;
 }
 
 .scores {
-    color: white;
-    padding-left: 1em;
-    font-size: 1.2em;
-    font-family: GothamBook;
-    padding-bottom: 0.5em;
+  color: white;
+  padding-left: 1em;
+  font-size: 1.2em;
+  font-family: GothamBook;
+  padding-bottom: 0.5em;
 }

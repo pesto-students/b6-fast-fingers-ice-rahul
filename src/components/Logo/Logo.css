@@ -1,46 +1,46 @@
-.logo{
-    width: 9em;
-    padding-top: 3.5em;
-  }
-  
-  .logoTitle{
-    font-family: Lasercorps;
-    padding: 0;
-    margin-top: -14px;
-    margin-bottom: 0;
-    color: #FF5155;
-    font-size: 3.35em;
-  }
-  
-  .strikedText{
-    color: #FF5155;
-    font-family: Gotham;
-    padding: 0;
-    position: relative;
-    width: 30%;
-    margin: auto;
-    margin-top: 5px;
-    font-size: 1.07em;
-    min-width: 25em;
-    margin-bottom: 2.35em;
-  }
-  
-  .strikedText::before{
-    content: '';
-    position: absolute;
-    left: 9px;
-    top: 8px;
-    height: 2px;
-    width: 20%;
-    background-color: #FF5155;
-  }
-  
-  .strikedText::after{
-    content: '';
-    position: absolute;
-    right: 9px;
-    top: 8px;
-    height: 2px;
-    width: 20%;
-    background-color: #FF5155;
-  }
+.logo {
+  width: 9em;
+  padding-top: 3.5em;
+}
+
+.logoTitle {
+  font-family: Lasercorps;
+  padding: 0;
+  margin-top: -14px;
+  margin-bottom: 0;
+  color: #ff5155;
+  font-size: 3.35em;
+}
+
+.strikedText {
+  color: #ff5155;
+  font-family: Gotham;
+  padding: 0;
+  position: relative;
+  width: 30%;
+  margin: auto;
+  margin-top: 5px;
+  font-size: 1.07em;
+  min-width: 25em;
+  margin-bottom: 2.35em;
+}
+
+.strikedText::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 8px;
+  height: 2px;
+  width: 20%;
+  background-color: #ff5155;
+}
+
+.strikedText::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  top: 8px;
+  height: 2px;
+  width: 20%;
+  background-color: #ff5155;
+}

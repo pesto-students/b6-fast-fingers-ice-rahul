@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { CrossIcon, HomeIcon, AppContext } from '../../components';
 import './Footer.css';
 
-function Footer({leftButton}) {
+function Footer({ leftButton }) {
 
     const [appData, setAppData] = useContext(AppContext);
 
@@ -10,7 +10,7 @@ function Footer({leftButton}) {
         setAppData((prevValue) => {
             return {
                 ...prevValue,
-                pageIndex:0
+                pageIndex: 0
             }
         });
     }
@@ -19,7 +19,7 @@ function Footer({leftButton}) {
         let currentScore = {};
         let gameScores = [];
         currentScore.score = appData.score;
-        if(appData.gameScores)  {
+        if (appData.gameScores) {
             gameScores = appData.gameScores;
         }
         gameScores.push(currentScore);
@@ -46,15 +46,15 @@ function Footer({leftButton}) {
 
     return (
         <div className="footerRow">
-            <div className="footerSections" style={{display: leftButton && leftButton==="quit" ? "none" : "inline-block"}}>
-                <CrossIcon className="crossIcon"/>
+            <div className="footerSections" style={{ display: leftButton && leftButton === "quit" ? "none" : "inline-block" }}>
+                <CrossIcon className="crossIcon" />
                 <p className="closeGame" onClick={stopGame}>STOP GAME</p>
             </div>
-            <div className="footerSections" style={{display: leftButton && leftButton==="quit" ? "inline-block" : "none", "lineHeight": "3.4em"}}>
+            <div className="footerSections" style={{ display: leftButton && leftButton === "quit" ? "inline-block" : "none", "lineHeight": "3.4em" }}>
                 <p className="closeGame" onClick={quitGame}>Quit</p>
             </div>
             <div className="footerSections footerAlignRight">
-                <HomeIcon className="crossIcon" onClick={goToHome}/>
+                <HomeIcon className="crossIcon" onClick={goToHome} />
             </div>
         </div>
     );

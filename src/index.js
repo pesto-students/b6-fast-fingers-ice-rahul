@@ -7,7 +7,7 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>
-        <App />
+      <App />
     </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,9 +1,9 @@
-.timerContainer{
+.timerContainer {
   position: relative;
   display: inline-block;
 }
 
-.progress-ring{
+.progress-ring {
   position: absolute;
   left: 0;
 }

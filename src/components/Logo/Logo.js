@@ -5,11 +5,11 @@ import './Logo.css';
 function Logo() {
     return (
         <>
-        <KeyboardIcon className="logo"/>
-        <p className="logoTitle">fast fingers</p>
-        <p className="strikedText">the ultimate typing game</p>
+            <KeyboardIcon className="logo" />
+            <p className="logoTitle">fast fingers</p>
+            <p className="strikedText">the ultimate typing game</p>
         </>
     );
-  }
-  
-  export default Logo;
+}
+
+export default Logo;
