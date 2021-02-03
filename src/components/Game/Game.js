@@ -53,6 +53,7 @@ function Game() {
             });
             getRandomValue();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[appData.pageIndex]);
 
     const getRandomValue = () => {
