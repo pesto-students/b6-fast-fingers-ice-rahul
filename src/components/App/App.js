@@ -39,6 +39,15 @@ function App() {
     }
   }
 
+  const showScore = () => {
+    const secondsElapsed =  Number(appData.gameScores[appData.gameScores.length-1].score).toFixed(2);
+    const secondsToConvert = Math.floor(secondsElapsed);
+    const milliSeconds = Math.floor((secondsElapsed - secondsToConvert) * 100);
+    const minutes = Math.floor(secondsToConvert/60);
+    const seconds = secondsToConvert%60;
+    return `${minutes} : ${seconds}.${milliSeconds}`;
+  }
+
   return (
     <>
       <div className="App" style={{ display:appData.pageIndex===0 ? "block" : "none" }}>
@@ -58,6 +67,16 @@ function App() {
         </div>
         <Footer />
       </div>
+
+      <div className="Thanks" style={{ display:appData.pageIndex===2 ? "block" : "none" }}>
+        <Header userName={name} difficulty={difficulty}/>
+        <div className="thanksBody">
+          <h1 className="finalGame">Score : Game { appData.gameScores ? appData.gameScores.length : 0 }</h1>
+          <p className="finalScore">{ appData.gameScores ? showScore() : 0 }</p>
+        </div>
+        <Footer />
+      </div>
+
     </>
   );
 }
