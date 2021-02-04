@@ -60,7 +60,7 @@ function Game() {
         const index = Math.floor(randomNumber);
         const word = appData[difficultyConfig.level][index];
         setWordChallenge(word);
-        const allowedTime = Math.ceil(word.length / appData.currentDifficultyFactor);
+        const allowedTime = Number(word.length / appData.currentDifficultyFactor).toFixed(2);
         let currentDifficultyFactor = appData.currentDifficultyFactor + 0.01;
         setAppData((prevValue) => {
             return {
@@ -68,7 +68,6 @@ function Game() {
                 currentDifficultyFactor: appData.currentDifficultyFactor + 0.01
             }
         })
-        console.log(currentDifficultyFactor);
         let filteredDifficultyFactorList = DropDownList.filter((val) => (currentDifficultyFactor > val.difficultyFactor));
         let difficultyFactorList = filteredDifficultyFactorList[filteredDifficultyFactorList.length - 1];
         if (difficultyFactorList !== undefined && appData.difficulty !== difficultyFactorList.level) {
@@ -87,7 +86,6 @@ function Game() {
             });
         }
         setSeconds(allowedTime > 2 ? allowedTime : 2);
-        console.log("I changed", Number(appData.score).toFixed(2));
     }
 
     return (

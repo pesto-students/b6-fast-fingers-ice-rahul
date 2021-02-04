@@ -54,7 +54,6 @@ function Timer({ seconds, name }) {
     })
 
     useEffect(() => {
-        console.log("seconds updated");
         setTimeLeft(seconds);
         setStepSize(totalSize / (seconds / timeStep));
         setStatus(totalSize);
