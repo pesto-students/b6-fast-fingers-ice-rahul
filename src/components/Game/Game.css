@@ -13,3 +13,16 @@
   font-size: 4em;
   margin: 15px;
 }
+
+@media only screen and (max-width: 600px) {
+  .gameContainer {
+    width: 100%;
+    min-height: 65vh;
+  }
+  .footerSections{
+    width: 60%;
+  }
+  .footerAlignRight{
+    width: 40%;
+  }
+}
