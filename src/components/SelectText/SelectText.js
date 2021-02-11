@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { AppContext, DropDownList, Dictionary } from '../../components';
+import React, { useState } from 'react';
+import { DropDownList, Dictionary } from '../../components';
 import './SelectText.css';
 
 function SelectText(props) {
-
-    const [appData, setAppData] = useContext(AppContext);
+    const appData = props.appData;
+    const setAppData = props.setAppData;
     const [visible, setVisibility] = useState("none");
     const [placeholder, setPlaceholder] = useState(props.placeholder);
 

@@ -38,11 +38,13 @@ function Home({ name, difficulty, appData, setAppData }) {
       style={{ display: appData.pageIndex === 0 ? "block" : "none" }}
     >
       <Logo />
-      <InputText name={name} placeholder="Type Your Name" />
+      <InputText name={name} placeholder="Type Your Name" appData={appData} setAppData={setAppData} />
       <SelectText
         name={difficulty}
         placeholder="Difficulty Level"
         list={DropDownList}
+        appData={appData}
+        setAppData={setAppData}
       />
       <div className="startGame" onClick={startGame}>
         START GAME

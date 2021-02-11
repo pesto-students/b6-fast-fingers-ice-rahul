@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../components';
+import React from 'react';
 import './ScoreBoard.css';
 
-function ScoreBoard() {
-    const [appData,] = useContext(AppContext);
+function ScoreBoard({ appData }) {
     const scores = appData.gameScores ? appData.gameScores : [];
 
     const showScore = (score) => {

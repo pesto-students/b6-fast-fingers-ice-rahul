@@ -29,14 +29,14 @@ function Retry({ appData, name, difficulty, setAppData }) {
 
   return (
     <div className="Thanks" style={{ display: appData.pageIndex === 2 ? "block" : "none" }}>
-      <Header userName={name} difficulty={difficulty} />
+      <Header userName={name} difficulty={difficulty} appData={appData} />
       <div className="thanksBody">
         <h1 className="finalGame">Score : Game {appData.gameScores ? appData.gameScores.length : 0}</h1>
         <p className="finalScore">{appData.score ? showScore() : 0}</p>
         <p className="highScore">{"New High Score"}</p>
         <p className="playAgain" onClick={playAgain}>Play Again</p>
       </div>
-      <Footer leftButton="quit" />
+      <Footer leftButton="quit" appData={appData} setAppData={setAppData} />
     </div>
   )
 }

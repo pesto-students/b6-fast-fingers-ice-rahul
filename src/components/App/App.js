@@ -15,7 +15,7 @@ function App() {
     <>
       <Home name={name} difficulty={difficulty} appData={appData} setAppData={setAppData} />
 
-      <Play name={name} difficulty={difficulty} appData={appData} />
+      <Play name={name} difficulty={difficulty} appData={appData} setAppData={setAppData} />
 
       <Retry name={name} difficulty={difficulty} appData={appData} setAppData={setAppData} />
     </>

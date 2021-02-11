@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { AppContext, DropDownList } from '../../components';
+import React, { useState, useEffect } from 'react';
+import { DropDownList } from '../../components';
 import './Timer.css';
 
-function Timer({ seconds, name }) {
-    const [appData, setAppData] = useContext(AppContext);
+function Timer({ seconds, name, appData, setAppData }) {
     const totalSize = 500;
     const timeStep = 0.1;
     const [stepSize, setStepSize] = useState(0);

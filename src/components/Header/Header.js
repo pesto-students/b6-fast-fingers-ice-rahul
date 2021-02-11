@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
-import { AppContext, PlayerIcon, GamePadIcon } from '../../components';
+import React from 'react';
+import { PlayerIcon, GamePadIcon } from '../../components';
 import './Header.css';
 
-function Header({ userName, difficulty }) {
-
-    const [appData,] = useContext(AppContext);
+function Header({ userName, difficulty, appData }) {
 
     return (
         <>

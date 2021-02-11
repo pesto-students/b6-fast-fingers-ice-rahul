@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Timer, InputText, AppContext, DropDownList, Dictionary } from '../../components';
+import React, { useState, useEffect } from 'react';
+import { Timer, InputText, DropDownList, Dictionary } from '../../components';
 import './Game.css'
 
-function Game() {
-    const [appData, setAppData] = useContext(AppContext);
+function Game({ appData, setAppData }) {
     const difficultyConfig = DropDownList.filter((val) => val.level === appData.difficulty)[0];
     const [wordChallenge, setWordChallenge] = useState(appData[difficultyConfig.level][0]);
     const [seconds, setSeconds] = useState(0);
@@ -90,11 +89,11 @@ function Game() {
 
     return (
         <div className="gameContainer">
-            <Timer name="gameTimer" seconds={seconds} />
+            <Timer name="gameTimer" seconds={seconds} appData={appData} setAppData={setAppData} />
             <div className="wordChallenge">
                 {wordChallenge.split('').map((val, idx) => (<span className="letters" key={`W-${idx}`}>{val}</span>))}
             </div>
-            <InputText name="gameInput" placeholder="Type The Word Here" />
+            <InputText name="gameInput" appData={appData} setAppData={setAppData} placeholder="Type The Word Here" />
         </div>
     );
 

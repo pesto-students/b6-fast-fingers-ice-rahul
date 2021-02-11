@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../components';
+import React from 'react';
 import './InputText.css';
 
-function InputText({ placeholder, name }) {
-    const [appData, setAppData] = useContext(AppContext);
+function InputText({ placeholder, name, appData, setAppData }) {
 
     const setText = (event) => {
         let value = event.target.value;

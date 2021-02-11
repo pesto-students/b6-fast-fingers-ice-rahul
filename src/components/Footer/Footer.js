@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
-import { CrossIcon, HomeIcon, AppContext } from '../../components';
+import React from 'react';
+import { CrossIcon, HomeIcon } from '../../components';
 import './Footer.css';
 
-function Footer({ leftButton }) {
-
-    const [appData, setAppData] = useContext(AppContext);
+function Footer({ leftButton, appData, setAppData }) {
 
     const goToHome = () => {
         setAppData((prevValue) => {
