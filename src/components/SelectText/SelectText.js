@@ -1,45 +1,43 @@
-import React, { useState } from 'react';
-import { DropDownList, Dictionary } from '../../components';
+import React, { useReducer } from 'react';
 import './SelectText.css';
 
-function SelectText(props) {
-    const appData = props.appData;
-    const setAppData = props.setAppData;
-    const [visible, setVisibility] = useState("none");
-    const [placeholder, setPlaceholder] = useState(props.placeholder);
+function handleInput(state, selectedVal){
+    if (selectedVal !== "") {
+        return {
+            ...state,
+            visible: state.visible === "none" ? "block" : "none",
+            label: selectedVal
+        }
+    }
+    return {
+        ...state,
+        visible: state.visible === "none" ? "block" : "none",
+    }
+}
 
-    const dropDownList = props.list ? props.list : [];
+function SelectText({placeholder, list, onChange}) {
 
-    const clickSelect = (event) => {
-        let dropDownState = visible === "none" ? "block" : "none";
-        setVisibility(dropDownState);
-        const isParent = event.target.innerHTML.includes("selectChild");
-        const isAnyTags = event.target.innerHTML.includes("<");
-        let selectedVal = isParent || isAnyTags ? "" : event.target.innerHTML;
-        if (selectedVal !== "" && selectedVal !== placeholder) {
-            setPlaceholder(selectedVal);
-            const difficultyConfig = DropDownList.filter((val) => val.level === selectedVal)[0];
-            let filteredList = [];
-            if (appData[difficultyConfig.level]) {
-                filteredList = appData[difficultyConfig.level];
-            } else {
-                filteredList = Dictionary.filter((val) => val.length >= difficultyConfig.minWord && val.length <= difficultyConfig.maxWord);
-            }
-            setAppData((prevValue) => {
-                return {
-                    ...prevValue,
-                    [props.name]: selectedVal,
-                    [difficultyConfig.level]: filteredList,
-                    currentDifficultyFactor: difficultyConfig.difficultyFactor
-                }
-            });
+    const [{ visible, label }, dispatch] = useReducer(handleInput, {visible: "none", label: placeholder});
+    const dropDownList = list ? list : [];
+
+    const getSelectedValue = (action) => {
+        const isParent = action.innerHTML.includes("selectChild");
+        const isAnyTags = action.innerHTML.includes("<");
+        return isParent || isAnyTags ? "" : action.innerHTML;
+    }
+
+    const handleSelect = (event) => {
+        const selectedVal = getSelectedValue(event.target);
+        dispatch(selectedVal);
+        if (onChange) {
+            onChange(selectedVal===placeholder ? 'EASY' : selectedVal);
         }
     }
 
     return (
-        <div className="selectText" onClick={clickSelect}>
+        <div className="selectText" onClick={handleSelect}>
             <div className="selectBox">
-                <span>{placeholder}</span>
+                <span>{label}</span>
                 <div className="selectChild" style={{ display: visible }}>
                     {
                         dropDownList.map((val, idx) => {
@@ -48,7 +46,6 @@ function SelectText(props) {
                     }
                 </div>
             </div>
-            <p className="error">{appData.selectError ? `Error: ${appData.selectError}` : ''}</p>
         </div>
     );
 }

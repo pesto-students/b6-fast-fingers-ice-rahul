@@ -1,25 +1,10 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../components';
-import Home from '../../pages/Home';
-import Play from '../../pages/Play';
-import Retry from '../../pages/Retry';
+import { useRoutes } from 'hookrouter';
+import routes from '../../utils/routes'; 
 import './App.css';
 
 function App() {
-
-  const [appData, setAppData] = useContext(AppContext);
-  const name = "userName";
-  const difficulty = "difficulty";
-
-  return (
-    <>
-      <Home name={name} difficulty={difficulty} appData={appData} setAppData={setAppData} />
-
-      <Play name={name} difficulty={difficulty} appData={appData} setAppData={setAppData} />
-
-      <Retry name={name} difficulty={difficulty} appData={appData} setAppData={setAppData} />
-    </>
-  );
+  const routeResult = useRoutes(routes);
+  return routeResult;
 }
 
 export default App;

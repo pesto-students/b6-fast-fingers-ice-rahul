@@ -1,8 +1,8 @@
 import React from 'react';
 import './ScoreBoard.css';
 
-function ScoreBoard({ appData }) {
-    const scores = appData.gameScores ? appData.gameScores : [];
+function ScoreBoard() {
+    const scores = localStorage.getItem('scores') != null ? JSON.parse(localStorage.getItem('scores')) : [];
 
     const showScore = (score) => {
         const secondsElapsed = Number(score).toFixed(2);

@@ -1,61 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { DropDownList } from '../../components';
+import { navigate, usePath } from 'hookrouter';
+import React, { useRef, useEffect, useReducer } from 'react';
 import './Timer.css';
 
-function Timer({ seconds, name, appData, setAppData }) {
-    const totalSize = 500;
-    const timeStep = 0.1;
-    const [stepSize, setStepSize] = useState(0);
-    const [status, setStatus] = useState(totalSize);
-    const [timeLeft, setTimeLeft] = useState(seconds);
+const totalSize = 500;
+const timeStep = 0.1;
 
+function handleTime(state, action) {
+    if (action.type === 'resetTime') {
+        return {
+            ...state,
+            timeLeft: action.value,
+            stepSize: totalSize / (action.value / timeStep),
+            status: totalSize
+        }
+    } else if (action.type === 'updateTime') {
+        return {
+            ...state,
+            timeLeft: state.timeLeft > timeStep ? state.timeLeft - timeStep : 0,
+            status: state.status > state.stepSize ? state.status - state.stepSize : 0
+        }
+    }
+
+    return state;
+}
+
+function Timer({ seconds, onChange }) {
+    const path = usePath();
+    const [{ stepSize, status, timeLeft }, dispatch] = useReducer(handleTime, { stepSize: 0, status: totalSize, timeLeft: seconds });
+    const gameScore = useRef(0);
     const displayTime = () => {
-        setTimeLeft(timeLeft > timeStep ? timeLeft - timeStep : 0);
-        setStatus(status > stepSize ? status - stepSize : 0);
-        setAppData((prevValue) => {
-            return {
-                ...prevValue,
-                "score": appData.score + timeStep,
-                [name]: status > 0 ? Number(timeLeft).toFixed(2) : status
-            }
-        });
+        dispatch({ type: "updateTime" })
+        gameScore.current += timeStep;
+        if(onChange)
+        {
+            onChange(gameScore.current);
+        }
+
+        localStorage.setItem("gamescore",gameScore.current);
         if (status <= stepSize) {
             gameOver();
         }
     }
 
     const gameOver = () => {
-        const difficultyConfig = DropDownList.filter((val) => val.level === appData.difficulty)[0];
         let currentScore = {};
         let gameScores = [];
-        currentScore.score = appData.score;
-        if (appData.gameScores) {
-            gameScores = appData.gameScores;
+        currentScore.score = gameScore.current;
+        if (localStorage.getItem("scores") !== null) {
+            gameScores = JSON.parse(localStorage.getItem("scores"));
         }
         gameScores.push(currentScore);
-        setAppData((prevValue) => {
-            return {
-                ...prevValue,
-                gameScores: gameScores,
-                pageIndex: 2,
-                currentDifficultyFactor: difficultyConfig.difficultyFactor
-            }
-        });
+        localStorage.setItem("scores", JSON.stringify(gameScores));
+        navigate(`/retry/${path.split('/')[2]}/${path.split('/')[3]}`);
     }
 
     useEffect(() => {
-        if (appData.pageIndex === 1) {
-            const timer = setInterval(() => {
-                status === 0 ? clearInterval(timer) : displayTime();
-            }, timeStep * 1000);
-            return () => clearInterval(timer)
-        }
-    })
+        const timer = setInterval(() => {
+            status <= 0 ? clearInterval(timer) : displayTime();
+        }, timeStep * 1000);
+        return () => clearInterval(timer)
+    });
 
     useEffect(() => {
-        setTimeLeft(seconds);
-        setStepSize(totalSize / (seconds / timeStep));
-        setStatus(totalSize);
+        dispatch({ type: "resetTime", value: seconds });
     }, [seconds]);
 
     return (

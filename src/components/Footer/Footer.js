@@ -1,45 +1,29 @@
+import { navigate, usePath } from 'hookrouter';
 import React from 'react';
 import { CrossIcon, HomeIcon } from '../../components';
 import './Footer.css';
 
-function Footer({ leftButton, appData, setAppData }) {
-
+function Footer({ leftButton }) {
+    const path = usePath();
     const goToHome = () => {
-        setAppData((prevValue) => {
-            return {
-                ...prevValue,
-                pageIndex: 0
-            }
-        });
+        navigate('/');
     }
 
     const stopGame = () => {
         let currentScore = {};
         let gameScores = [];
-        currentScore.score = appData.score;
-        if (appData.gameScores) {
-            gameScores = appData.gameScores;
+        currentScore.score = localStorage.getItem("gamescore");
+        if (localStorage.getItem("scores") !== null) {
+            gameScores = JSON.parse(localStorage.getItem("scores"));
         }
         gameScores.push(currentScore);
-        setAppData((prevValue) => {
-            return {
-                ...prevValue,
-                "gameScores": gameScores,
-                "pageIndex": 2
-            }
-        });
+        localStorage.setItem("scores", JSON.stringify(gameScores));
+        navigate(`/retry/${path.split('/')[2]}/${path.split('/')[3]}`);
     }
 
     const quitGame = () => {
-        let gameScores = [];
-        setAppData((prevValue) => {
-            return {
-                ...prevValue,
-                gameScores: gameScores,
-                pageIndex: 0,
-                userName: ""
-            }
-        });
+        localStorage.removeItem("scores");
+        navigate('/');
     }
 
     return (

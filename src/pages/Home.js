@@ -1,54 +1,60 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { Logo, InputText, SelectText, DropDownList } from "../components";
+import { navigate } from 'hookrouter';
 
-function Home({ name, difficulty, appData, setAppData }) {
+function updateState(state, action) {
+  switch (action.type) {
+    case 'name': return {
+      ...state,
+      name: action.value,
+      error: action.value !== '' ? '' : state.error
+    }
+    case 'difficulty': return {
+      ...state,
+      'difficulty': action.value
+    }
+    case 'error': return {
+      ...state,
+      error: action.value
+    }
+    default: return {
+      name: '',
+      difficulty: '',
+      error: ''
+    }
+  }
+}
+
+function Home() {
+  const [{ name, difficulty, error }, dispatch] = useReducer(updateState, { difficulty: 'EASY' });
   const startGame = () => {
-    if (appData[name] && appData[difficulty]) {
-      setAppData((prevValue) => {
-        return {
-          ...prevValue,
-          pageIndex: 1,
-          nameError: "",
-          selectError: "",
-          gameInput: "",
-        };
-      });
-    } else if (!appData[name]) {
-      setAppData((prevValue) => {
-        return {
-          ...prevValue,
-          nameError: "Please Enter Your Name To Start The Game",
-          selectError: "",
-        };
-      });
-    } else if (!appData[difficulty]) {
-      setAppData((prevValue) => {
-        return {
-          ...prevValue,
-          nameError: "",
-          selectError: "Please Select A Difficulty Level To Start The Game",
-        };
-      });
+    if (name && difficulty) {
+      navigate(`/play/${name}/${difficulty}`);
+    } else {
+      dispatch({ type: 'error', value: 'Name cannot be left blank' });
     }
   };
 
   return (
-    <div
-      className="App"
-      style={{ display: appData.pageIndex === 0 ? "block" : "none" }}
-    >
+    <div className="App" >
       <Logo />
-      <InputText name={name} placeholder="Type Your Name" appData={appData} setAppData={setAppData} />
+
+      <InputText
+        placeholder="Type Your Name"
+        onChange={(playerName) => dispatch({ type: 'name', value: playerName })}
+        error={error}
+      />
+
       <SelectText
-        name={difficulty}
         placeholder="Difficulty Level"
         list={DropDownList}
-        appData={appData}
-        setAppData={setAppData}
+        onChange={(gameDifficulty) => dispatch({ type: 'difficulty', value: gameDifficulty })}
       />
+
       <div className="startGame" onClick={startGame}>
         START GAME
       </div>
+
     </div>
   );
 }
