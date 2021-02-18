@@ -80,3 +80,8 @@
   left: 1.5em;
   content: "";
 }
+@media only screen and (max-width: 600px) {
+  .finalGame {
+    font-size: 2em;
+  }
+}

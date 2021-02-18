@@ -20,3 +20,14 @@ div.inputText {
   width: 25%;
   min-width: 25em;
 }
+
+@media only screen and (max-width: 600px) {
+  div.inputText  {
+    width: auto;
+    min-width: 0;
+  }
+  input[type="text"] {
+    min-width: 0;
+    width:75%;
+  }
+}

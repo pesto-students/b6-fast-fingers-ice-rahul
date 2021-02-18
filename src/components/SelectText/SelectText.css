@@ -64,3 +64,10 @@ div.selectText::before {
 .selectChild p:last-child {
   margin-bottom: 0.5em;
 }
+
+@media only screen and (max-width: 600px) {
+  div.selectText{
+    min-width: 0;
+    width: 90%;
+  }
+}

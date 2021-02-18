@@ -44,3 +44,15 @@
   width: 20%;
   background-color: #ff5155;
 }
+
+@media only screen and (max-width: 600px) {
+  .strikedText {
+    min-width: 20em;
+  }
+  .strikedText::before, .strikedText::after{
+    width: 12%;
+  }
+  .logo{
+    padding-top: 1.5em;
+  }
+}

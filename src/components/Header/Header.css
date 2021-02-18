@@ -50,3 +50,20 @@
   font-family: Gotham;
   color: #ff5155;
 }
+
+@media only screen and (max-width: 600px) {
+  .headerRow {
+    width: 90%;
+    padding: 15px;
+    color: #fff;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .sectionHalf {
+    width: 100%;
+  }
+  .alignRight {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}

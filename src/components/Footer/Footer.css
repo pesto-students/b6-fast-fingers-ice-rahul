@@ -30,3 +30,9 @@
   color: #ff5155;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+  .footerSections {
+    text-align: center;
+  }
+}
