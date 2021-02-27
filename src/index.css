@@ -54,5 +54,6 @@ code {
   color: #ff5155;
   text-align: left;
   padding-left: 15px;
-  margin-top: 2px;
+  position: relative;
+  top: -1em;
 }

@@ -43,14 +43,6 @@ function Timer({ seconds, onChange }) {
     }
 
     const gameOver = () => {
-        let currentScore = {};
-        let gameScores = [];
-        currentScore.score = gameScore.current;
-        if (localStorage.getItem("scores") !== null) {
-            gameScores = JSON.parse(localStorage.getItem("scores"));
-        }
-        gameScores.push(currentScore);
-        localStorage.setItem("scores", JSON.stringify(gameScores));
         navigate(`/retry/${path.split('/')[2]}/${path.split('/')[3]}`);
     }
 

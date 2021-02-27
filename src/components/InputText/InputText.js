@@ -16,14 +16,14 @@ function handleInput(state, val) {
     }
 }
 
-function InputText({ reset, placeholder, onChange, error: inputError }) {
+function InputText({ reset, type, placeholder, onChange, error: inputError, disabled }) {
     const [{ data, error }, dispatch] = useReducer(handleInput, '');
 
     useEffect(() => {
-        if(reset && reset === true) {
+        if (reset && reset === true) {
             dispatch('');
-        }   
-    },[reset])
+        }
+    }, [reset])
 
     const handleChange = (value) => {
         dispatch(value);
@@ -33,12 +33,20 @@ function InputText({ reset, placeholder, onChange, error: inputError }) {
     }
 
     return (
-        <div className="inputText">
-            <input type="text" value={data ? data : ''} onChange={(val) => handleChange(val.target.value)} placeholder={placeholder ? placeholder : "Enter Text"} />
+        <>
+            <div className="inputText">
+                <input
+                    type={type ? type : 'text'}
+                    value={data ? data : ''}
+                    onChange={(val) => handleChange(val.target.value)}
+                    placeholder={placeholder ? placeholder : "Enter Text"}
+                    disabled={disabled ? disabled : false}
+                />
+            </div>
             {
-                reset ? '' : <p className="error">{inputError? inputError : error ? `${error}` : ''}</p>
+                reset ? '' : <p className="error">{inputError ? inputError : error ? `${error}` : ''}</p>
             }
-        </div>
+        </>
     );
 
 }

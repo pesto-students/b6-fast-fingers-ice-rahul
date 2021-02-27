@@ -1,11 +1,42 @@
 import { navigate } from 'hookrouter';
-import React from 'react';
-import { Header, Footer } from '../components';
+import React ,{ useState, useEffect } from 'react';
+import { Header, Footer, Logout } from '../components';
+import { addScoreURL } from '../utils/constants';
+
+function useAddScores(score) {
+  const [scores, setScores] = useState([]);
+  useEffect(() => {
+    const url = addScoreURL.url;
+    fetch(url, {
+      method: addScoreURL.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+        'token': localStorage.getItem('refreshToken')
+      },
+      body: JSON.stringify({score: score})
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      setScores(res.result);
+      localStorage.setItem('accessToken',JSON.stringify(res.accessToken));
+    })
+    .catch((err) => {
+      console.log(err)
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      navigate('/login');
+    });
+  },[score]);
+
+  return {
+      scores: scores
+  }
+}
 
 function Retry({ playerName, difficulty }) {
-
   const score = localStorage.getItem("gamescore");
-  const scoreBoard = localStorage.getItem("scores") != null ? JSON.parse(localStorage.getItem("scores")) : [];
+  const { scores:scoreBoard } = useAddScores(score);
 
   const playAgain = () => {
     navigate(`/play/${playerName}/${difficulty}`);
@@ -33,6 +64,7 @@ function Retry({ playerName, difficulty }) {
         <p className="playAgain" onClick={playAgain}>Play Again</p>
       </div>
       <Footer leftButton="quit" />
+      <Logout type="logout-center" />
     </div>
   )
 }

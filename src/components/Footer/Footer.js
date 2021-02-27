@@ -1,6 +1,7 @@
 import { navigate, usePath } from 'hookrouter';
 import React from 'react';
 import { CrossIcon, HomeIcon } from '../../components';
+import { quitGameURL } from '../../utils/constants';
 import './Footer.css';
 
 function Footer({ leftButton }) {
@@ -10,20 +11,29 @@ function Footer({ leftButton }) {
     }
 
     const stopGame = () => {
-        let currentScore = {};
-        let gameScores = [];
-        currentScore.score = localStorage.getItem("gamescore");
-        if (localStorage.getItem("scores") !== null) {
-            gameScores = JSON.parse(localStorage.getItem("scores"));
-        }
-        gameScores.push(currentScore);
-        localStorage.setItem("scores", JSON.stringify(gameScores));
         navigate(`/retry/${path.split('/')[2]}/${path.split('/')[3]}`);
     }
 
     const quitGame = () => {
-        localStorage.removeItem("scores");
-        navigate('/');
+        const url = quitGameURL.url;
+        fetch(url, {
+            method: quitGameURL.method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'token': localStorage.getItem('refreshToken')
+            }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
+            navigate('/');
+        })
+        .catch((err) => {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            navigate('/login');
+        });
     }
 
     return (

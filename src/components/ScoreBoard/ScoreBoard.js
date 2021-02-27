@@ -1,9 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import { navigate } from 'hookrouter';
+import { getScoreBoardURL } from '../../utils/constants';
 import './ScoreBoard.css';
 
-function ScoreBoard() {
-    const scores = localStorage.getItem('scores') != null ? JSON.parse(localStorage.getItem('scores')) : [];
+function useScores() {
+    const [scores, setScores] = useState([]);
+    useEffect(() => {
+      const url = getScoreBoardURL.url;
+      fetch(url, {
+        method: getScoreBoardURL.method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'token': localStorage.getItem('refreshToken')
+        }
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        setScores(res.result);
+        localStorage.setItem('accessToken',JSON.stringify(res.accessToken));
+      })
+      .catch((err) => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        navigate('/login');
+      });
+    },[]);
+  
+    return {
+        scores: scores
+    }
+  }
 
+function ScoreBoard() {
+    const { scores } = useScores();
     const showScore = (score) => {
         const secondsElapsed = Number(score).toFixed(2);
         const secondsToConvert = Math.floor(secondsElapsed);

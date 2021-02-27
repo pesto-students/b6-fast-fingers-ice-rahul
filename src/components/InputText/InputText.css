@@ -1,12 +1,11 @@
-input[type="text"] {
+input[type="text"], input[type="email"], input[type="password"] {
   font-family: "Breamcatcher";
   padding: 0.5em 1em;
   font-size: 1.5em;
   outline: none;
-  border-radius: 10px;
-  border: 0;
-  background: #ffffffa6;
   min-width: 15em;
+  background: transparent;
+  border: 0;
 }
 
 input::placeholder {
@@ -19,15 +18,18 @@ div.inputText {
   margin-bottom: 1.2em;
   width: 25%;
   min-width: 25em;
+  border-radius: 10px;
+  background: #ffffffa6;
 }
 
 @media only screen and (max-width: 600px) {
   div.inputText  {
     width: auto;
-    min-width: 0;
+    min-width: 90%;
+    display: flex;
   }
-  input[type="text"] {
+  div.inputText input[type="text"], input[type="email"], input[type="password"]  {
     min-width: 0;
-    width:75%;
+    width:85%;
   }
 }

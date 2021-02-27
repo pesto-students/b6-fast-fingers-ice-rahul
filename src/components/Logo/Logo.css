@@ -47,12 +47,17 @@
 
 @media only screen and (max-width: 600px) {
   .strikedText {
-    min-width: 20em;
+    min-width: 100%;
   }
   .strikedText::before, .strikedText::after{
     width: 12%;
   }
   .logo{
-    padding-top: 1.5em;
+    padding-top: 0em;
+  }
+}
+@media only screen and (max-width: 340px) {
+  .strikedText {
+    font-size: 0.9em;
   }
 }

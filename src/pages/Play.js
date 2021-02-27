@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { Header, Game, Footer, ScoreBoard } from '../components';
+import { Header, Game, Footer, ScoreBoard, Logout } from '../components';
 
 function handleState(state, action){
   if (action.type === 'updateLevel') {
@@ -31,6 +31,7 @@ function Play({ playerName, difficulty }) {
         />
       </div>
       <Footer leftButton="stop" />    
+      <Logout type="logout-center" />
     </div>
   )
 }

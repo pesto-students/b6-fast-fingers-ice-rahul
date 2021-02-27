@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
-import { Logo, InputText, SelectText, DropDownList } from "../components";
+import React, { useReducer, useEffect, useState } from "react";
+import { Logo, InputText, SelectText, DropDownList, PlayIcon, Logout } from "../components";
 import { navigate } from 'hookrouter';
+import { userDetailsUrl } from '../utils/constants';
 
 function updateState(state, action) {
   switch (action.type) {
@@ -25,8 +26,40 @@ function updateState(state, action) {
   }
 }
 
+function useAuthentication(dispatch) {
+  const [placeholder, setPlaceholder] = useState('Searching your name ...');
+  useEffect(() => {
+    const url = userDetailsUrl.url;
+    fetch(url, {
+      method: userDetailsUrl.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+        'token': localStorage.getItem('refreshToken')
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      setPlaceholder(res.name);
+      localStorage.setItem('accessToken',JSON.stringify(res.accessToken));
+      dispatch({ type: 'name', value: res.name })
+    })
+    .catch((err) => {
+      console.log(err);
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      navigate('/login');
+    });
+  },[dispatch]);
+
+  return {
+    placeholder: placeholder
+  }
+}
+
 function Home() {
   const [{ name, difficulty, error }, dispatch] = useReducer(updateState, { difficulty: 'EASY' });
+  const { placeholder } = useAuthentication(dispatch);
   const startGame = () => {
     if (name && difficulty) {
       navigate(`/play/${name}/${difficulty}`);
@@ -40,9 +73,10 @@ function Home() {
       <Logo />
 
       <InputText
-        placeholder="Type Your Name"
+        placeholder={placeholder}
         onChange={(playerName) => dispatch({ type: 'name', value: playerName })}
         error={error}
+        disabled
       />
 
       <SelectText
@@ -52,8 +86,9 @@ function Home() {
       />
 
       <div className="startGame" onClick={startGame}>
-        START GAME
+        <PlayIcon /> START GAME
       </div>
+      <Logout type="logout" />
 
     </div>
   );
