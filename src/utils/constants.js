@@ -1,5 +1,5 @@
 export const baseUrl = 'https://fast-fingers-backend.herokuapp.com';
-// export const baseUrl = 'http://localhost:4000';
+//export const baseUrl = 'http://localhost:4000';
 
 export const loginUrl = {
     url: `${baseUrl}/api/login`,
@@ -15,6 +15,11 @@ export const userDetailsUrl = {
     url: `${baseUrl}/api/`,
     method: 'GET'
 };
+
+export const getWordsUrl = {
+    url: `${baseUrl}/api/getWords`,
+    method: 'POST'
+}
 
 export const addScoreURL = {
     url: `${baseUrl}/api/addScore`,

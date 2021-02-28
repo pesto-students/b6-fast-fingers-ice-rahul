@@ -1,23 +1,23 @@
 import React, { useEffect, useReducer } from 'react';
-import { Timer, InputText, DropDownList, Dictionary } from '../../components';
+import { Timer, InputText, DropDownList } from '../../components';
+import { getWordsUrl } from '../../utils/constants';
+import { navigate } from 'hookrouter';
 import './Game.css'
 
-function manageGame(state, action) {
-    const wordBook = [];
+function useManageGame(state, action) {
     switch (action.type) {
         case 'difficulty':
             const difficultyConfig = DropDownList.filter((val) => val.level === action.value)[0];
-            if (!(action.value in wordBook)) {
-                wordBook[action.value] = Dictionary.filter((value) => value.length >= difficultyConfig.minWord && value.length <= difficultyConfig.maxWord);
-            }
-            const generatedWord = wordBook[action.value][Math.floor(Math.random() * wordBook[action.value].length)];
+            const generatedWord = state.wordBook[action.value][Math.floor(Math.random() * state.wordBook[action.value].length)].word;
             const difficultyFactor = state.difficultyFactor ? state.difficultyFactor + 0.01 : difficultyConfig.difficultyFactor;
             const allowedTime = Number(generatedWord.length / difficultyFactor).toFixed(2);
+            
             return {
                 ...state,
                 word: generatedWord,
                 difficultyFactor: difficultyFactor,
-                seconds: allowedTime
+                seconds: allowedTime,
+                wordBook: state.wordBook
             };
         case 'inputWord':
             return {
@@ -25,13 +25,18 @@ function manageGame(state, action) {
                 typedWord: action.value,
                 reset: action.value !== '' ? false : true
             }
+        case 'wordBook':
+          return {
+            ...state,
+            wordBook: { ...state.wordBook, ...action.value }
+          }
         default:
             return {...state}
     }
 }
 
 function Game({ level, onLevelChange, onScoreChange }) {
-    const [{ word: wordChallenge, typedWord, reset, seconds, difficultyFactor }, dispatch] = useReducer(manageGame, { reset: false });
+    const [{ word: wordChallenge, typedWord, reset, seconds, difficultyFactor }, dispatch] = useReducer(useManageGame, { reset: false, wordBook: [] });
     
     if (difficultyFactor) {
         let filteredDifficultyFactorList = DropDownList.filter((val) => (difficultyFactor > val.difficultyFactor));
@@ -71,7 +76,28 @@ function Game({ level, onLevelChange, onScoreChange }) {
     }, [level, typedWord]);
 
     useEffect(() => {
+      const url = getWordsUrl.url;
+      fetch(url, {
+        method: getWordsUrl.method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'token': localStorage.getItem('refreshToken')
+        },
+        body: JSON.stringify({ level: level })
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        localStorage.setItem('accessToken',JSON.stringify(res.accessToken));
+        dispatch({ type: 'wordBook', value: { [level] : res.result } })
         dispatch({ type: "difficulty", value: level });
+      })
+      .catch((err) => {
+        console.log(err);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        navigate('/login');
+      });
     }, [level]);
 
     return (

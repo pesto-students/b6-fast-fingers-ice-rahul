@@ -56,7 +56,7 @@ function Retry({ playerName, difficulty }) {
 
   return (
     <div className="Thanks">
-      <Header playerName={playerName} difficulty={difficulty} />
+      <Header playerName={decodeURIComponent(playerName)} difficulty={difficulty} />
       <div className="thanksBody">
         <h1 className="finalGame">Score : Game {scoreBoard ? scoreBoard.length : 0}</h1>
         <p className="finalScore">{score ? showScore() : 0}</p>
