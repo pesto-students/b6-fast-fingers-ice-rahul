@@ -1,21 +1,6 @@
 import React, { useReducer } from 'react'
 import { Header, Game, Footer, ScoreBoard, Logout } from '../components';
-
-function handleState(state, action){
-  if (action.type === 'updateLevel') {
-    return {
-      ...state,
-      level: action.value
-    }
-  }
-  if (action.type === 'updateScore') {
-    return {
-      ...state,
-      score: action.value
-    }
-  }
-  return {...state}
-}
+import { handleState } from '../utils/reducers';
 
 function Play({ playerName, difficulty }) {
   const [{level, score}, dispatch] = useReducer(handleState, {level: difficulty, score:0})

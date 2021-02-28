@@ -24,6 +24,7 @@
   font-size: 1.2em;
   font-family: GothamBook;
   padding-bottom: 0.5em;
+  line-height: 1em;
 }
 
 @media only screen and (max-width: 600px) {

@@ -2,43 +2,13 @@ import React, { useReducer, useEffect, useState } from "react";
 import { Logo, InputText, SelectText, DropDownList, PlayIcon, Logout } from "../components";
 import { navigate } from 'hookrouter';
 import { userDetailsUrl } from '../utils/constants';
-
-function updateState(state, action) {
-  switch (action.type) {
-    case 'name': return {
-      ...state,
-      name: action.value,
-      error: action.value !== '' ? '' : state.error
-    }
-    case 'difficulty': return {
-      ...state,
-      'difficulty': action.value
-    }
-    case 'error': return {
-      ...state,
-      error: action.value
-    }
-    default: return {
-      name: '',
-      difficulty: '',
-      error: ''
-    }
-  }
-}
+import { handleState } from '../utils/reducers';
+import { callApiWithAuth } from '../utils/functions';
 
 function useAuthentication(dispatch) {
   const [placeholder, setPlaceholder] = useState('Searching your name ...');
   useEffect(() => {
-    const url = userDetailsUrl.url;
-    fetch(url, {
-      method: userDetailsUrl.method,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        'token': localStorage.getItem('refreshToken')
-      }
-    })
-    .then((res) => res.json())
+    callApiWithAuth(userDetailsUrl)
     .then((res) => {
       setPlaceholder(res.name);
       localStorage.setItem('accessToken',JSON.stringify(res.accessToken));
@@ -58,13 +28,13 @@ function useAuthentication(dispatch) {
 }
 
 function Home() {
-  const [{ name, difficulty, error }, dispatch] = useReducer(updateState, { difficulty: 'EASY' });
+  const [{ name, difficulty }, dispatch] = useReducer(handleState, { difficulty: 'EASY' });
   const { placeholder } = useAuthentication(dispatch);
   const startGame = () => {
     if (name && difficulty) {
       navigate(`/play/${name}/${difficulty}`);
     } else {
-      dispatch({ type: 'error', value: 'Name cannot be left blank' });
+      alert('Name cannot be left blank');
     }
   };
 
@@ -75,7 +45,6 @@ function Home() {
       <InputText
         placeholder={placeholder}
         onChange={(playerName) => dispatch({ type: 'name', value: playerName })}
-        error={error}
         disabled
       />
 
@@ -88,6 +57,7 @@ function Home() {
       <div className="startGame" onClick={startGame}>
         <PlayIcon /> START GAME
       </div>
+      
       <Logout type="logout" />
 
     </div>

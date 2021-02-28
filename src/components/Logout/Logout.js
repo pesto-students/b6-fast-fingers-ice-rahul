@@ -1,20 +1,12 @@
 import React from 'react';
 import { logOutURL } from '../../utils/constants';
 import { navigate } from 'hookrouter';
+import { callApiWithAuth } from '../../utils/functions';
 
 function Logout({ type }){
 
-  function logout(){
-    const url = logOutURL.url;
-    fetch(url, {
-      method: logOutURL.method,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        'token': localStorage.getItem('refreshToken')
-      }
-    })
-    .then((res) => res.json())
+  function handleLogout(){
+    callApiWithAuth(logOutURL)
     .then((res) => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
@@ -29,7 +21,7 @@ function Logout({ type }){
   }
 
   return (
-    <div className={type} onClick={logout}>
+    <div className={type} onClick={handleLogout}>
       Logout
     </div>
   );

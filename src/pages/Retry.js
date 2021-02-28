@@ -2,21 +2,12 @@ import { navigate } from 'hookrouter';
 import React ,{ useState, useEffect } from 'react';
 import { Header, Footer, Logout } from '../components';
 import { addScoreURL } from '../utils/constants';
+import { callApiWithAuth } from '../utils/functions';
 
 function useAddScores(score) {
   const [scores, setScores] = useState([]);
   useEffect(() => {
-    const url = addScoreURL.url;
-    fetch(url, {
-      method: addScoreURL.method,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        'token': localStorage.getItem('refreshToken')
-      },
-      body: JSON.stringify({score: score})
-    })
-    .then((res) => res.json())
+    callApiWithAuth(addScoreURL, {score: score})
     .then((res) => {
       setScores(res.result);
       localStorage.setItem('accessToken',JSON.stringify(res.accessToken));
@@ -54,13 +45,21 @@ function Retry({ playerName, difficulty }) {
     return `00 : 00.00`;
   }
 
+  function isHighest() {
+    const scoreList = scoreBoard.map((val) => val.score);
+    if(Math.max(...scoreList).toFixed(2) === Number(score).toFixed(2)) {
+      return true;
+    }
+    return false
+  }
+
   return (
     <div className="Thanks">
       <Header playerName={decodeURIComponent(playerName)} difficulty={difficulty} />
       <div className="thanksBody">
         <h1 className="finalGame">Score : Game {scoreBoard ? scoreBoard.length : 0}</h1>
         <p className="finalScore">{score ? showScore() : 0}</p>
-        <p className="highScore">{"New High Score"}</p>
+        <p className="highScore">{ isHighest() ? "New High Score" : ''}</p>
         <p className="playAgain" onClick={playAgain}>Play Again</p>
       </div>
       <Footer leftButton="quit" />

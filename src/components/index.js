@@ -1,8 +1,6 @@
 import App from './App/App';
-import { AppContext, StateProvider } from './Context/AppContext';
 import { ReactComponent as CrossIcon } from '../assets/images/icons/cross-icon.svg';
 import { ReactComponent as PlayIcon } from '../assets/images/icons/play-icon.svg';
-import Dictionary from '../assets/data/dictionary.json';
 import DropDownList from './SelectText/SelectText.json';
 import Footer from './Footer/Footer';
 import Game from './Game/Game';
@@ -20,9 +18,7 @@ import Timer from './Timer/Timer';
 
 export {
     App,
-    AppContext,
     CrossIcon,
-    Dictionary,
     DropDownList,
     Footer,
     Game,
@@ -36,7 +32,6 @@ export {
     PlayerIcon,
     ScoreBoard,
     SelectText,
-    StateProvider,
     Timer,
     PlayIcon
 };
