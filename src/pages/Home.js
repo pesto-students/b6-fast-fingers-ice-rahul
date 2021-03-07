@@ -1,14 +1,14 @@
 import React, { useReducer, useEffect, useState } from "react";
 import { Logo, InputText, SelectText, DropDownList, PlayIcon, Logout } from "../components";
 import { navigate } from 'hookrouter';
-import { userDetailsUrl } from '../utils/constants';
+import { CONFIG } from '../utils/constants';
 import { handleState } from '../utils/reducers';
 import { callApiWithAuth } from '../utils/functions';
 
 function useAuthentication(dispatch) {
   const [placeholder, setPlaceholder] = useState('Searching your name ...');
   useEffect(() => {
-    callApiWithAuth(userDetailsUrl)
+    callApiWithAuth(CONFIG.USER_DETAIL)
     .then((res) => {
       setPlaceholder(res.name);
       localStorage.setItem('accessToken',JSON.stringify(res.accessToken));

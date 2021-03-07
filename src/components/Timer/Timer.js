@@ -2,21 +2,21 @@ import { navigate, usePath } from 'hookrouter';
 import React, { useRef, useEffect, useReducer } from 'react';
 import './Timer.css';
 
-const totalSize = 500;
-const timeStep = 0.1;
+const TOTAL_SIZE = 500;
+const TIME_STEP = 0.1;
 
 function handleTime(state, action) {
   if (action.type === 'resetTime') {
     return {
       ...state,
       timeLeft: action.value,
-      stepSize: totalSize / (action.value / timeStep),
-      status: totalSize
+      stepSize: TOTAL_SIZE / (action.value / TIME_STEP),
+      status: TOTAL_SIZE
     }
   } else if (action.type === 'updateTime') {
     return {
       ...state,
-      timeLeft: state.timeLeft > timeStep ? state.timeLeft - timeStep : 0,
+      timeLeft: state.timeLeft > TIME_STEP ? state.timeLeft - TIME_STEP : 0,
       status: state.status > state.stepSize ? state.status - state.stepSize : 0
     }
   }
@@ -26,11 +26,11 @@ function handleTime(state, action) {
 
 function Timer({ seconds, onChange }) {
   const path = usePath();
-  const [{ stepSize, status, timeLeft }, dispatch] = useReducer(handleTime, { stepSize: 0, status: totalSize, timeLeft: seconds });
+  const [{ stepSize, status, timeLeft }, dispatch] = useReducer(handleTime, { stepSize: 0, status: TOTAL_SIZE, timeLeft: seconds });
   const gameScore = useRef(0);
   const displayTime = () => {
     dispatch({ type: "updateTime" })
-    gameScore.current += timeStep;
+    gameScore.current += TIME_STEP;
     if (onChange) {
       onChange(gameScore.current);
     }
@@ -48,7 +48,7 @@ function Timer({ seconds, onChange }) {
   useEffect(() => {
     const timer = setInterval(() => {
       status <= 0 ? clearInterval(timer) : displayTime();
-    }, timeStep * 1000);
+    }, TIME_STEP * 1000);
     return () => clearInterval(timer)
   });
 

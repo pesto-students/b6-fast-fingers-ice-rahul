@@ -1,12 +1,12 @@
 import React from 'react';
-import { logOutURL } from '../../utils/constants';
+import { CONFIG } from '../../utils/constants';
 import { navigate } from 'hookrouter';
 import { callApiWithAuth } from '../../utils/functions';
 
 function Logout({ type }){
 
   function handleLogout(){
-    callApiWithAuth(logOutURL)
+    callApiWithAuth(CONFIG.LOGOUT)
     .then((res) => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');

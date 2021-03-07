@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { Logo, InputText } from "../components";
 import { navigate } from 'hookrouter';
-import { registerUrl, loginUrl } from '../utils/constants';
+import { CONFIG } from '../utils/constants';
 import { handleState } from '../utils/reducers';
 import { callApi } from '../utils/functions';
 
@@ -12,7 +12,7 @@ function Login() {
 
   function registerUser() {
     dispatch({ type: 'loading', value: true });
-    callApi(registerUrl.url, { name: name, email: email, password: password })
+    callApi(CONFIG.REGISTER.url, { name: name, email: email, password: password })
       .then((res) => {
         if (!res.status) {
           dispatch({ type: 'error', value: res.msg });
@@ -33,7 +33,7 @@ function Login() {
 
   function loginUser() {
     dispatch({ type: 'loading', value: true });
-    callApi(loginUrl.url, { email: email, password: password })
+    callApi(CONFIG.LOGIN.url, { email: email, password: password })
       .then((res) => {
         if (!res.status) {
           dispatch({ type: 'error', value: res.msg });

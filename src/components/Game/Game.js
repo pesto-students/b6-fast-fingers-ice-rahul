@@ -1,10 +1,11 @@
 import React, { useEffect, useReducer } from 'react';
 import { Timer, InputText, DropDownList } from '../../components';
-import { getWordsUrl } from '../../utils/constants';
+import { CONFIG } from '../../utils/constants';
 import { navigate } from 'hookrouter';
 import './Game.css'
 import { handleGame } from '../../utils/reducers';
 import { callApiWithAuth } from '../../utils/functions';
+import Loading from '../../assets/images/loading_game.gif';
 
 function Game({ level, onLevelChange, onScoreChange }) {
   const [{ word: wordChallenge, typedWord, reset, seconds, difficultyFactor, placeholder }, dispatch] = useReducer(handleGame, { reset: false, wordBook: [], placeholder: 'Type The Word Here' });
@@ -20,7 +21,7 @@ function Game({ level, onLevelChange, onScoreChange }) {
   useEffect(() => {
     const indicateLetters = (letters) => {
       const lettersResult = Array.from(letters).map((val, idx) => {
-        if (typedWord[idx] && typedWord[idx] === val.innerHTML) {
+        if (typedWord[idx] && typedWord[idx].toLowerCase() === val.innerHTML.toLowerCase()) {
           val.style.color = "#54BA18";
           return 1;
         } else if (typedWord[idx] && typedWord[idx] !== val.innerHTML) {
@@ -48,7 +49,7 @@ function Game({ level, onLevelChange, onScoreChange }) {
 
   useEffect(() => {
     dispatch({ type:'placeholder', value: 'Your Game is about to start' })
-    callApiWithAuth(getWordsUrl, { level: level })
+    callApiWithAuth(CONFIG.WORDS, { level: level })
     .then((res) => {
       localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
       dispatch({ type: 'wordBook', value: { [level]: res.result } })
@@ -67,17 +68,25 @@ function Game({ level, onLevelChange, onScoreChange }) {
     <div className="gameContainer">
     {
       wordChallenge && wordChallenge.length > 0 ?
-      <Timer seconds={seconds} onChange={(score) => onScoreChange(score)} /> :
-      ''
-    }
+      <>
+        <Timer seconds={seconds} onChange={(score) => onScoreChange(score)} /> 
+        <div className="wordChallenge">
+          {wordChallenge ? wordChallenge.split('').map((val, idx) => (<span className="letters" key={`W-${idx}`}>{val}</span>)) : ''}
+        </div>
+        <InputText
+          reset={reset}
+          placeholder={placeholder}
+          onChange={(typed) => dispatch({ type: 'inputWord', value: typed })}
+        />
+      </> 
+      :
+      <>
+      <img src={Loading} alt="Loading" />
       <div className="wordChallenge">
-        {wordChallenge ? wordChallenge.split('').map((val, idx) => (<span className="letters" key={`W-${idx}`}>{val}</span>)) : ''}
+        Get Ready
       </div>
-      <InputText
-        reset={reset}
-        placeholder={placeholder}
-        onChange={(typed) => dispatch({ type: 'inputWord', value: typed })}
-      />
+      </>
+    }
     </div>
   );
 

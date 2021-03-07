@@ -1,7 +1,7 @@
 import { navigate, usePath } from 'hookrouter';
 import React from 'react';
 import { CrossIcon, HomeIcon } from '../../components';
-import { quitGameURL } from '../../utils/constants';
+import { CONFIG } from '../../utils/constants';
 import { callApiWithAuth } from '../../utils/functions';
 import './Footer.css';
 
@@ -16,7 +16,7 @@ function Footer({ leftButton }) {
   }
 
   const quitGame = () => {
-    callApiWithAuth(quitGameURL)
+    callApiWithAuth(CONFIG.QUIT)
     .then((res) => {
       localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
       navigate('/');

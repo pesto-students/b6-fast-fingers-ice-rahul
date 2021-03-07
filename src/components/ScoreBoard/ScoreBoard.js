@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { navigate } from 'hookrouter';
-import { getScoreBoardURL } from '../../utils/constants';
+import { CONFIG } from '../../utils/constants';
 import { callApiWithAuth } from '../../utils/functions';
 import './ScoreBoard.css';
 
 function useScores() {
   const [scores, setScores] = useState([]);
   useEffect(() => {
-    callApiWithAuth(getScoreBoardURL)
+    callApiWithAuth(CONFIG.SCOREBOARD)
       .then((res) => {
         setScores(res.result);
         localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
