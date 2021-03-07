@@ -28,6 +28,7 @@ function Timer({ seconds, onChange }) {
   const path = usePath();
   const [{ stepSize, status, timeLeft }, dispatch] = useReducer(handleTime, { stepSize: 0, status: TOTAL_SIZE, timeLeft: seconds });
   const gameScore = useRef(0);
+  const timer = useRef(null);
   const displayTime = () => {
     dispatch({ type: "updateTime" })
     gameScore.current += TIME_STEP;
@@ -46,10 +47,10 @@ function Timer({ seconds, onChange }) {
   }
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      status <= 0 ? clearInterval(timer) : displayTime();
+    timer.current = setInterval(() => {
+      status <= 0 ? clearInterval(timer.current) : displayTime();
     }, TIME_STEP * 1000);
-    return () => clearInterval(timer)
+    return () => clearInterval(timer.current)
   });
 
   useEffect(() => {
